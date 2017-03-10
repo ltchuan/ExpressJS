@@ -92,4 +92,33 @@ app.get('/customer/contact', customer.contact);
 app.listen(3000);
 ```
 
-So eventhough their isn't the concept of a controller, we can view these individual Javascript files as the controllers if we wish.
+So eventhough their isn't the concept of a controller, we can view these individual Javascript files as the controllers if we <wish class=""></wish>
+
+
+
+
+## Route parameters and queries
+What about if our URL has parameters, for example if our URL is `/customer/20`. We can do this easily in Express. We define a pattern via 
+```javascript
+app.get('/customer/:id', function (req, res) {
+    res.send('Customer selected is ' + req.params.id);
+});
+```
+or alternatively we can pass in the name `id` as a string via `req.params['id']`
+
+If we have a query instead, e.g. `customer?id=700` we do
+```javascript
+app.get('/customer', function (req, res) {
+    res.send('Customer selected is ' + req.query.id);
+});
+```
+
+We can also define patterns for our path using regular expressions such as 
+```javascript
+app.get(/^\/range\/(\d+)(?:\.\.(\d+))?$/, function (req, res) {
+    var from = req.params[0];
+    var to = req.params[1];
+    res.send('Range of values using regular expressions for /range/' + from + '..' + to);
+});
+```
+which works for a URL such as `/range/100..300`.
