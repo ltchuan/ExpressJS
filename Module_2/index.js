@@ -1,16 +1,11 @@
 var express = require('express');
+	home = require('./routes/home.js');
+	customer = require('./routes/customer.js');
 
 var app = express();
 
-app.get('/', function (req, res) {
-	res.send('Welcome to express!');
-});
+app.get('/', home.index);
+app.get('/customer', customer.index);
+app.get('/customer/contact', customer.contact);
 
-app.get('/customers', function (req, res) {
-	res.send('Welcome to customers section');
-});
-
-app.get('/customers/create', function (req, res) {
-	res.send('This page is for creating customers');
-});
 app.listen(3000);
