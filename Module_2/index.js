@@ -1,24 +1,19 @@
 var express = require('express');
-	home = require('./routes/home.js');
-	customer = require('./routes/customer.js');
 
 var app = express();
 
-// customer/20
-app.get('/customer/:id', function (req, res) {
-	res.send('Customer selected is ' + req.params.id);
+app.configure('production', function () {
+	// middleware
+	app.set('title', 'CRM Application');
 });
 
-//customer?id=700
-app.get('/customer', function (req, res) {
-	res.send('Customer selected is ' + req.query.id);
+app.configure('development', function () {
+	// middleware
+	app.set('title', 'CRM Application - Development');
 });
 
-// range/100..300
-app.get(/^\/range\/(\d+)(?:\.\.(\d+))?$/, function (req, res) {
-	var from = req.params[0];
-	var to = req.params[1];
-	res.send('Range of values using regular expressions for /range/' + from + '..' + to);
+app.get('/', function (req, res) {
+	res.send('Value of title is' + app.get('title'));
 });
 
 app.listen(3000);

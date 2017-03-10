@@ -122,3 +122,38 @@ app.get(/^\/range\/(\d+)(?:\.\.(\d+))?$/, function (req, res) {
 });
 ```
 which works for a URL such as `/range/100..300`.
+
+
+
+
+## Configurations
+Note: The configure function has been removed in Express.js 4.
+
+We can also configure Express at startup. We do this via
+```javascript
+app.configure( function () {
+    // Functions
+});
+```
+We can use this to configure Middleware. We can also use the functions `app.set` and `app.get` to set values at start and then read these values later. An example of this is `app.set('title', 'CRM Application')`.
+
+We can also define different configurations for states such as one for development and one for production. We can do this by adding another parameter to the configuration
+```javascript
+app.configure('production', function () {
+    // middleware
+    app.set('title', 'CRM Application');
+});
+
+app.configure('development', function () {
+    // middleware
+    app.set('title', 'CRM Application - Development');
+});
+```
+
+We can check which configuration is being run via
+```javascript
+app.get('/', function (req, res) {
+    res.send('Value of title is' + app.get('title'));
+});
+```
+and if we run this we will find it is using the development configuration. To run the production configuration we would have to define an environmental variable `NODE_ENV=production` before launching it.
