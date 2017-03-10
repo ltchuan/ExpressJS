@@ -2,18 +2,8 @@ var express = require('express');
 
 var app = express();
 
-app.configure('production', function () {
-	// middleware
-	app.set('title', 'CRM Application');
-});
-
-app.configure('development', function () {
-	// middleware
-	app.set('title', 'CRM Application - Development');
-});
-
-app.get('/', function (req, res) {
-	res.send('Value of title is' + app.get('title'));
-});
+app.use(express.logger('dev'));
+app.use(express.favicon());
+app.use(express.static(__dirname + '/public'));
 
 app.listen(3000);

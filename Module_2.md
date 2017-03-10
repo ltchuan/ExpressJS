@@ -157,3 +157,19 @@ app.get('/', function (req, res) {
 });
 ```
 and if we run this we will find it is using the development configuration. To run the production configuration we would have to define an environmental variable `NODE_ENV=production` before launching it.
+
+
+
+
+## Enhancing apps with middleware
+Note: Error: Most middleware (like logger) is no longer bundled with Express and must be installed separately. Please see [https://github.com/senchalabs/connect#middleware](https://github.com/senchalabs/connect#middleware).
+
+We can use Connect Middleware from Express.js. An example of this is
+```javascript
+app.configure( function () {
+    
+    app.use(express.logger('dev'));
+    app.use(express.favicon());
+    app.use(express.static(__dirname + '/public'));
+});
+```
